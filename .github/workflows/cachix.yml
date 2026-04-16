@@ -15,23 +15,34 @@ jobs:
           - nixpkgs=channel:nixos-25.11
         system:
           - x86_64-linux
-          # - aarch64-linux
+          - aarch64-linux
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
       uses: actions/checkout@v5
+
+    - name: Setup QEMU to build ARM target
+      if: matrix.system == 'aarch64-linux'
+      uses: docker/setup-qemu-action@v4
+      with:
+        platforms: arm64
+
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
           experimental-features = nix-command flakes
+          extra-platforms = aarch64-linux
+
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Set up cachix
+
+    - name: Set up cachix (push hook)
       uses: cachix/cachix-action@v17
       with:
         name: ${{ matrix.cachixName }}
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Build nix packages
+
+    - name: Build nix packages (& execute cachix hook)
       run: nix build .#packages.${{ matrix.system }}.default
