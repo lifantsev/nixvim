@@ -16,10 +16,10 @@
         fileset = lib.attrsets.filterAttrs (n: v: v == "regular") (builtins.readDir path);
     in map (name: path + "/${name}") (builtins.attrNames fileset);
 
-    fplugins = filesIn ./plugin; # plugins that have nixvim module
-    fexternplugins = filesIn ./plugin/extern; # plugins not managed by nixvim
-    fbinds = filesIn ./binds; # kemymap definitions
-    fextralua = filesIn ./extralua; # just lua to be prepended to init.lua
+    pluginFiles = filesIn ./plugin; # plugins that have nixvim module
+    externpluginFiles = filesIn ./plugin/extern; # plugins not managed by nixvim
+    custompluginFiles = filesIn ./plugin/custom; # custom plugins made just for this config
+    bindFiles = filesIn ./binds; # kemymap definitions
 in {
     opts = (import ./options.nix);
     globals.mapleader = " ";
@@ -34,25 +34,25 @@ in {
     };
 
     # configure ./plugin's using nixvim their modules
-    plugins = lib.mergeAttrsList (map (file: { ${stemOf file} = (import file args).plugin;}) fplugins); # TODO use genAttrs'
+    plugins = lib.mergeAttrsList (map (file: { ${stemOf file} = (import file args).plugin;}) pluginFiles); # TODO use genAttrs'
 
     # install ./plugin/extra's based on filename
-    extraPlugins = map (file: pkgs.vimPlugins.${stemOf file}) fexternplugins;
+    extraPlugins = map (file: pkgs.vimPlugins.${stemOf file}) externpluginFiles;
 
     # take binds from ./binds
     # ./plugin's may define remap
     # ./plugin/extra's may also define remap
-    keymaps = lib.lists.concatLists ( (map (file: import file args) fbinds) 
-                                   ++ (map (file: (import file args).remap or []) fplugins)
-                                   ++ (map (file: if lib.hasSuffix ".nix" file then (import file args).remap or [] else []) fexternplugins) );
+    keymaps = lib.lists.concatLists ( (map (file: import file args) bindFiles) 
+                                   ++ (map (file: (import file args).remap or []) pluginFiles)
+                                   ++ (map (file: if lib.hasSuffix ".nix" file then (import file args).remap or [] else []) externpluginFiles) );
 
     # this needs to be pre
     # ./plugin/extra's may define lua or they can just be a lua file
     # ./plugin's may define lua
     # ./extralua is appended
-    extraConfigLuaPre = lib.concatStrings (map (file: if lib.hasSuffix ".nix" file then (import file args).lua else builtins.readFile file) fexternplugins)
-                      + lib.concatStrings (map (file: (import file args).lua or "") fplugins)
-                      + lib.concatStrings (map builtins.readFile fextralua);
+    extraConfigLuaPre = lib.concatStrings (map (file: if lib.hasSuffix ".nix" file then (import file args).lua else builtins.readFile file) externpluginFiles)
+                      + lib.concatStrings (map (file: (import file args).lua or "") pluginFiles)
+                      + lib.concatStrings (map builtins.readFile custompluginFiles);
 
     # just add highlight definitions to the end of init.lua
     extraConfigLuaPost = import ./highlights.nix cfg.colors;

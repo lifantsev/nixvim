@@ -10,14 +10,14 @@ in {
     options.programs.lifantsev-nixvim = {
         enable = lib.mkOption {
             description = "whether to configure and enable the nixvim module";
-            default = false;
             type = lib.types.bool;
+            default = false;
         };
 
         colorscheme = lib.mkOption {
             description = "name of the colorscheme to use";
-            default = "catppuccin";
             type = lib.types.str;
+            default = "catppuccin";
             example = "gruvbox";
         };
 
@@ -26,7 +26,24 @@ in {
             defaultText = "blacklist no plugins";
             example = {
                 whitelist = true;
-                list = [];
+                list = [ "auto-save" ];
+            };
+            type = lib.types.submodule {
+                options = {
+                    whitelist = lib.mkOption {
+                        description = "whether to treat the plugin list as a whitelist instead of blacklist";
+                        type = lib.types.bool;
+                        default = false;
+                    };
+
+                    list = lib.mkOption {
+                        # TODO make it clear what these names are
+                        description = "list of plugin names to blacklist (or whitelist)";
+                        type = lib.types.listOf lib.types.str;
+                        default = [];
+                        example = [ "lsp" ];
+                    };
+                };
             };
             default = {};
         };
