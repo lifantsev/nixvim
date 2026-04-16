@@ -25,20 +25,6 @@ in {
         settings = {
             transparent_background = true;
             float.transparent = true;
-            custom_highlights = with colors; {
-                FloatTitle.fg = blue;
-                FloatBorder.fg = mg;
-
-                MiniFilesTitleFocused = { fg = blue; bold = true; };
-                MiniFilesBorderModified.fg = red;
-
-                LeapLabel = { fg = purple; bg = bg; bold = true; };
-
-                NoiceCmdlineIcon.fg = mg;
-                NoiceCmdlineIconSearch.link = "NoiceCmdlineIcon";
-                NoiceFormatConfirm.bg = 0;
-                NoiceFormatConfirmDefault.bg = 0;
-            };
         };
     };
     plugins = lib.mergeAttrsList (map (file: { ${stemOf file} = (import file args).plugin;}) (filesIn ./plugin));
@@ -52,4 +38,6 @@ in {
     extraConfigLuaPre = lib.concatStrings (map (file: if lib.hasSuffix ".nix" file then (import file args).lua else builtins.readFile file) (filesIn ./plugin/extra))
                       + lib.concatStrings (map (file: (import file args).lua or "") (filesIn ./plugin))
                       + lib.concatStrings (map builtins.readFile (filesIn ./extralua));
+
+    extraConfigLuaPost = import ./highlights.nix colors;
 }
