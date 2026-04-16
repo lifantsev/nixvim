@@ -7,19 +7,21 @@
     };
 
     outputs = { nixpkgs, nixvim, ... }: let
-        system = "aarch64-linux";
+        systems = [ "aarch64-linux" "x86_64-linux" ];
         module = import ./module;
         defaultColors = import ./colors.nix;
         defaultColorscheme = "catppuccin";
     in {
-        packages.${system}.default = nixvim.legacyPackages.${system}.makeNixvimWithModule {
-            inherit module;
-            pkgs = nixpkgs.legacyPackages.${system};
-            extraSpecialArgs = {
-                colors = defaultColors;
-                colorscheme = defaultColorscheme;
+        packages = nixpkgs.lib.genAttrs systems (system: {
+            default = nixvim.legacyPackages.${system}.makeNixvimWithModule {
+                inherit module;
+                pkgs = nixpkgs.legacyPackages.${system};
+                extraSpecialArgs = {
+                    colors = defaultColors;
+                    colorscheme = defaultColorscheme;
+                };
             };
-        };
+        });
 
         homeManagerModules.default = { pkgs, lib, config, ... }: {
             imports = [ nixvim.homeModules.nixvim ];
