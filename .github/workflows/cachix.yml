@@ -1,10 +1,10 @@
 name: "Build packages and populate cachix cache"
 on:
   workflow_dispatch:
-  # pull_request:
-  # push:
-  #   branches:
-  #     - main
+  pull_request:
+  push:
+    branches:
+      - main
 jobs:
   nix-build-and-cache:
     strategy:
@@ -38,11 +38,11 @@ jobs:
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 
-    - name: Set up cachix (push hook)
+    - name: Set up cachix (add post-build hook)
       uses: cachix/cachix-action@v17
       with:
         name: ${{ matrix.cachixName }}
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
 
-    - name: Build nix packages (& execute cachix hook)
+    - name: Build nix packages
       run: nix build .#packages.${{ matrix.system }}.default
