@@ -13,8 +13,8 @@
         defaultColorscheme = "catppuccin";
     in {
         nixConfig = {
-            substituters = [ "https://lifantsev-nixvim.cachix.org" ];
-            trusted-public-keys = [ "lifantsev-nixvim.cachix.org-1:YrToDOQcRnfUaXmkCBgF4nN4Znsvq/tCCX1pISSmFm0=" ];
+            extra-substituters = [ "https://lifantsev-nixvim.cachix.org" ];
+            extra-trusted-public-keys = [ "lifantsev-nixvim.cachix.org-1:YrToDOQcRnfUaXmkCBgF4nN4Znsvq/tCCX1pISSmFm0=" ];
         };
 
         packages = nixpkgs.lib.genAttrs systems (system: {
