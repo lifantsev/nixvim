@@ -8,9 +8,7 @@
 
     outputs = { nixpkgs, nixvim, ... }: let
         systems = [ "aarch64-linux" "x86_64-linux" ];
-        module = import ./module;
-        defaultColors = import ./colors.nix;
-        defaultColorscheme = "catppuccin";
+        module = import ./module.nix;
     in {
         nixConfig = {
             extra-substituters = [ "https://lifantsev-nixvim.cachix.org" ];
@@ -18,59 +16,23 @@
         };
 
         packages = nixpkgs.lib.genAttrs systems (system: {
-            default = nixvim.legacyPackages.${system}.makeNixvimWithModule {
-                inherit module;
-                pkgs = nixpkgs.legacyPackages.${system};
-                extraSpecialArgs = {
-                    colors = defaultColors;
-                    colorscheme = defaultColorscheme;
-                };
+            default = nixvim.legacyPackages.${system}.makeNixvim {
+                imports = [(module { env = "nixPackage"; })];
             };
+            # minimal = nixvim.legacyPackages.${system}.makeNixvim {
+            #     imports = [
+            #         (module { env = "nixPackage"; })
+            #         # TODO make changes other than making it gruvbox
+            #         { programs.lifantsev-nixvim.colorscheme = "gruvbox"; }
+            #     ];
+            # };
         });
 
-        homeManagerModules.default = { pkgs, lib, config, ... }: {
-            imports = [ nixvim.homeModules.nixvim ];
-
-            options.programs.lifantsev-nixvim = {
-                enable = lib.mkOption {
-                    description = "whether to configure and enable the nixvim module";
-                    default = false;
-                    type = lib.types.bool;
-                };
-
-                colorscheme = lib.mkOption {
-                    description = "name of the colorscheme to use";
-                    default = defaultColorscheme;
-                    type = lib.types.str;
-                    example = "gruvbox";
-                };
-
-                colors = lib.mkOption {
-                    description = "hex strings to use for vim highlights not covered by colorscheme";
-                    default = {};
-                    defaultText = "catpuccin mocha colorscheme";
-                    example = {
-                        bg = "#282828";
-                        blue = "#83a598";
-                    };
-                    type = lib.types.submodule {
-                        options = lib.mapAttrs (_: default: lib.mkOption {
-                            type = lib.types.str;
-                            inherit default;
-                        }) defaultColors;
-                    };
-                };
-            };
-
-            config = let cfg = config.programs.lifantsev-nixvim;
-            in lib.mkIf cfg.enable
-            {
-                programs.nixvim = { enable = true; } // module {
-                    inherit pkgs lib;
-                    colors = cfg.colors;
-                    colorscheme = cfg.colorscheme;
-                };
-            };
+        homeManagerModules.default = {
+            imports = [
+                nixvim.homeModules.nixvim
+                (module { env = "homeManagerModule"; })
+            ];
         };
     };
 }

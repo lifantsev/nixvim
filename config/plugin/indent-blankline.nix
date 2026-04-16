@@ -1,4 +1,4 @@
-{ colors, ... }: {
+{ cfg, ... }: {
     plugin.enable = true;
 
     plugin.settings = {
@@ -12,7 +12,7 @@
     lua = /*lua*/ ''
         local ibl_hooks = require("ibl.hooks")
         ibl_hooks.register(ibl_hooks.type.HIGHLIGHT_SETUP, function()
-            vim.api.nvim_set_hl(0, "IblChar", { fg = "${colors.t1}" })
+            vim.api.nvim_set_hl(0, "IblChar", { fg = "${cfg.colors.t1}" })
         end)
     '';
 }

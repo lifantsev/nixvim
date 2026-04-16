@@ -1,4 +1,4 @@
-{ colors, ... }: {
+{ cfg, ... }: {
     plugin.enable = true;
 
     plugin.settings = {
@@ -12,7 +12,7 @@
             refresh.statusline = 500;
             refresh.tabline = 700;
 
-            theme = with colors; let 
+            theme = with cfg.colors; let 
                 mkBlock = col: { a = { fg=col; gui="italic"; }; };
             in {
                 inactive = mkBlock mg;

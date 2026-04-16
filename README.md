@@ -60,3 +60,12 @@ programs.lifantsev-nixvim = {
 ```
 
 TODO using the flake if youre configuration isnt flake based (ie cant add a flake input)
+
+### Binary Cache
+This repository has a github workflow that automatically builds a package for `x86_64-linux` and `aarch64-linux` and pushes them to [cachix](https://lifantsev-nixvim.cachix.org). To tell nix to use this cache (you might want to if you have limited space or compute), add this to your configuration:
+```
+nix.settings = {
+    extra-substituters = [ "https://lifantsev-nixvim.cachix.org" ];
+    extra-trusted-public-keys = [ "lifantsev-nixvim.cachix.org-1:YrToDOQcRnfUaXmkCBgF4nN4Znsvq/tCCX1pISSmFm0=" ];
+};
+```
