@@ -1,0 +1,24 @@
+{
+    bg = "#11111b";
+    mg = "#5b6078";
+    fg = "#cdd6f4";
+
+    t0 = "#11111b";
+    t1 = "#1e1e2e";
+    t2 = "#313244";
+    t3 = "#45475a";
+    t4 = "#5b6078";
+    t5 = "#7f849c";
+    t6 = "#a6adc8";
+    t7 = "#cdd6f4";
+
+    black = "#0f0f19";
+    red = "#f38ba8";
+    orange = "#fab387";
+    yellow = "#f9e2af";
+    green = "#a6e3a1";
+    aqua = "#94e2d5";
+    blue = "#89b4fa";
+    purple = "#cba6f7";
+    brown = "#f5c2e7";
+}
