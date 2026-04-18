@@ -10,7 +10,7 @@
         lua_ls.settings.diagnostics.globals = [ "vim" ];
     };
 
-    lua = /*lua*/ ''
+    lua.pre = /*lua*/ ''
         vim.o.signcolumn = "yes"
     '';
 }

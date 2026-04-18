@@ -1,4 +1,4 @@
-{ ... }: [
+{ ... }: { keymaps = [
     # undo redo
     { mode = "n"; key = "U"; action = "<CMD>silent redo<cr>"; }
     { mode = "n"; key = "u"; action = "<CMD>silent undo<cr>"; }
@@ -20,4 +20,4 @@
 
     # insert semicolon to the right
     { mode = "i"; key = "<c-;>"; action = ";<left>"; }
-]
+];}

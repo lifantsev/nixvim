@@ -1,4 +1,4 @@
-{ ... }: let modes = [ "n" "v" ]; in [
+{ ... }: let modes = [ "n" "v" ]; in { keymaps = [
     # window nav
     { mode = modes; key = "<leader>n"; action = "<C-w><Left>"; }
     { mode = modes; key = "<leader>a"; action = "<C-w><Up>"; }
@@ -28,4 +28,4 @@
     { mode = "n"; key = "<BS>"; action = "<C-^>"; } # previous buffer
     { mode = "n"; key = "<Left>"; action = "<C-o>"; } # jump positions within buffer
     { mode = "n"; key = "<Right>"; action = "<C-i>"; }
-]
+];}

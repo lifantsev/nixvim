@@ -1,5 +1,5 @@
 # i use semicolon for all bindings that exit stuff
-{ ... }: [
+{ ... }: { keymaps = [
     # basic exit
     { mode = ["i" "v" "x" "s"]; key = ";n"; action = "<ESC>"; }
     { mode = "n"; key = ";n"; action = "ZZ"; }
@@ -15,4 +15,4 @@
     { mode = "i"; key = ";k"; action = "<ESC>A"; }
     { mode = "i"; key = ";h"; action = "<ESC>I"; }
     { mode = "i"; key = ";c"; action = "<ESC><CMD>lua require('Comment.api').insert.linewise.eol()<CR>"; }
-]
+];}

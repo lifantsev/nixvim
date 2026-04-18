@@ -1,4 +1,4 @@
-{ lib, ... }: let modes = [ "n" "v" "s" "x" "o" ]; in [
+{ lib, ... }: let modes = [ "n" "v" "s" "x" "o" ]; in { keymaps = [
     { mode = modes; key = "h"; action = "i"; }
     { mode = modes; key = "h"; action = "i"; }
     { mode = modes; key = "k"; action = "a"; }
@@ -36,4 +36,4 @@
     { mode = "o"; key = "I"; action = "J"; }
 
     { mode = modes; key = "O"; action = "L"; }
-]
+];}

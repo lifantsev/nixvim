@@ -16,7 +16,7 @@
         };
     };
 
-    remap = [
+    keymaps = [
         { mode = "n"; key = "<leader>sf"; action = "<CMD>Telescope find_files<CR>"; }
         { mode = "n"; key = "<leader>sh"; action = "<CMD>Telescope help_tags<CR>"; }
         { mode = "n"; key = "<leader>sg"; action = "<CMD>Telescope live_grep<CR>"; } # rg cwd

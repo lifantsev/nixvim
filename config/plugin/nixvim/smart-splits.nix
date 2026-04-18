@@ -1,7 +1,7 @@
 { ... }: {
     plugin.enable = true;
 
-    remap = let
+    keymaps = let
         bind = direction: {
             mode = [ "n" "t" ];
             key = "<s-${direction}>";

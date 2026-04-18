@@ -1,7 +1,7 @@
 { ... }: {
     plugin.enable = true;
 
-    remap = let act = dir: "<CMD>lua toggletermdir='${dir}'<CR><CMD>ToggleTerm direction=${dir}<CR>"; in [
+    keymaps = let act = dir: "<CMD>lua toggletermdir='${dir}'<CR><CMD>ToggleTerm direction=${dir}<CR>"; in [
         { mode = "n"; key = "<c-l><down>";  action = act "horizontal"; }
         { mode = "n"; key = "<c-l><right>"; action = act "vertical"; }
         { mode = "n"; key = "<c-l><up>";    action = act "float"; }
