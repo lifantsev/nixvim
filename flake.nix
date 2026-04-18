@@ -8,7 +8,7 @@
 
     outputs = { nixpkgs, nixvim, ... }: let
         systems = [ "aarch64-linux" "x86_64-linux" ];
-        module = import ./module;
+        module = import ./module.nix;
     in {
         packages = nixpkgs.lib.genAttrs systems (system: {
             default = nixvim.legacyPackages.${system}.makeNixvim {
