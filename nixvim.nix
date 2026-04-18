@@ -7,7 +7,8 @@
 # TODO change markdown highlight colors to something more pleasing
 # TODO per filetype wrapping
 
-{ lib, pkgs, cfg, ... }@args: let
+{ lib, pkgs, config, ... }: let
+    cfg = config.programs.lifantsev-nixvim;
     features = lib.filterAttrs (name: attrs: attrs.enable) cfg.features;
 in {
     globals.mapleader = " ";

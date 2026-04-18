@@ -1,4 +1,7 @@
-{ lib, ... }@args: {
+{ lib, config, ... }@arguments: let 
+    cfg = config.programs.lifantsev-nixvim;
+    args = arguments // { inherit cfg; };
+in {
     enable = lib.mkEnableOption "configuration of nixvim module";
 
     colorscheme = lib.mkOption {

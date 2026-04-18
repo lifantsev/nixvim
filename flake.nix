@@ -8,11 +8,25 @@
 
     outputs = { nixpkgs, nixvim, ... }: let
         systems = [ "aarch64-linux" "x86_64-linux" ];
-        module = import ./module.nix;
+        nixvimConfig = import ./nixvim.nix;
+        modules = {
+            nixPackage = { pkgs, ... }@args: {
+                config = nixvimConfig args;
+                options.programs.lifantsev-nixvim = import ./options args;
+            };
+            homeModule = { pkgs, ... }@args: {
+                options.programs.lifantsev-nixvim = import ./options args;
+                config = args.lib.mkIf args.config.programs.lifantsev-nixvim.enable {
+                    programs.nixvim = nixvimConfig args // {
+                        enable = true;
+                    };
+                };
+            };
+        };
     in {
         packages = nixpkgs.lib.genAttrs systems (system: {
             default = nixvim.legacyPackages.${system}.makeNixvim {
-                imports = [(module "nixPackage")];
+                imports = [modules.nixPackage];
             };
             # minimal = nixvim.legacyPackages.${system}.makeNixvim {
             #     imports = [
@@ -26,7 +40,7 @@
         homeManagerModules.default = {
             imports = [
                 nixvim.homeModules.nixvim
-                (module "homeManagerModule")
+                modules.homeModule
             ];
         };
 
