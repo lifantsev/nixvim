@@ -1,4 +1,4 @@
-{ ... }: {
+{ cfg, ... }: with cfg.keys.directional; {
     plugin.enable = true;
 
     keymaps = let act = dir: "<CMD>lua toggletermdir='${dir}'<CR><CMD>ToggleTerm direction=${dir}<CR>"; in [
@@ -6,9 +6,9 @@
         { mode = "n"; key = "<c-l><right>"; action = act "vertical"; }
         { mode = "n"; key = "<c-l><up>";    action = act "float"; }
 
-        { mode = "n"; key = "<c-l><c-i>"; action = act "horizontal"; }
-        { mode = "n"; key = "<c-l><c-o>"; action = act "vertical"; }
-        { mode = "n"; key = "<c-l><c-a>"; action = act "float"; }
+        { mode = "n"; key = "<c-l>${down}";  action = act "horizontal"; }
+        { mode = "n"; key = "<c-l>${right}"; action = act "vertical"; }
+        { mode = "n"; key = "<c-l>${up}";    action = act "float"; }
 
         { mode = "t"; key = ";n"; action = "<CMD>ToggleTerm<CR>"; }
         { mode = "t"; key = ";a"; action.__raw = ''function()
