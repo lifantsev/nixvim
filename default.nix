@@ -8,7 +8,7 @@
 # TODO per filetype wrapping
 
 { lib, pkgs, cfg, ... }@args: let
-    features = cfg.features; # TODO filter out features that arent enabled
+    features = lib.filterAttrs (name: attrs: attrs.enable) cfg.features;
 in {
     globals.mapleader = " ";
 
