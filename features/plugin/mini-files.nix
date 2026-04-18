@@ -1,13 +1,13 @@
-{ ... }: {
+{ lib, cfg, ... }: with cfg.keys; let dir = directional; up = lib.toUpper; in {
     plugin = {
         enable = true;
 
         settings = {
             mappings = {
                 close       = ",";
-                go_in_plus  = "o";
-                go_out      = "n";
-                reveal_cwd  = "N";
+                go_in_plus  = dir.right;
+                go_out      = dir.left;
+                reveal_cwd  = up dir.left;
                 reset       = "<BS>";
                 synchronize = "w";
                 trim_left   = "<";
