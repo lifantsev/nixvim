@@ -1,4 +1,4 @@
-{ ... }: {
+{ cfg, ... }: {
     plugin.enable = true;
     plugin.settings = {
         custom_surroundings = let
@@ -19,8 +19,8 @@
         };
         mappings = {
             add = "sa";
-            delete = "sr";
-            replace = "sd";
+            delete = if cfg.keys.swap-rd then "sr" else "sd";
+            replace = if cfg.keys.swap-rd then "sd" else "sr";
             find = "sf";
             find_left = "sF";
             highlight = "sh"; # useless, literally just flashes the chars
