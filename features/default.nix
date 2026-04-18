@@ -12,7 +12,7 @@
         attrs = if ftype=="nix" then
                     (import file args)
                 else if ftype=="lua" then
-                    { luapre = builtins.readFile file; }
+                    { lua.pre = builtins.readFile file; }
                 else {};
     in {
         enable = true;
@@ -23,7 +23,7 @@
             post = attrs.lua.post or "";
         };
 
-        vimPlugin = lib.path.hasPrefix ./plugin/vim file;
+        vimPlugin = lib.path.hasPrefix ./vimplugin file;
         
         nixvimPlugin = attrs.plugin or {};
     };
