@@ -1,11 +1,12 @@
 { env }: { pkgs, lib, config, ... }: let
     cfg = config.programs.lifantsev-nixvim;
-    vimconfig = import ./config { inherit pkgs lib cfg; };
+    vimconfig = import ../config { inherit pkgs lib cfg; };
 in {
-    config = if env == "nixPackage" then vimconfig
-    else if env == "homeManagerModule" then
-        lib.mkIf cfg.enable { programs.nixvim = { enable = true; } // vimconfig; }
-    else {};
+    config = if env == "nixPackage"
+             then vimconfig
+             else if env == "homeManagerModule"
+             then lib.mkIf cfg.enable { programs.nixvim = { enable = true; } // vimconfig; }
+             else {};
 
     options.programs.lifantsev-nixvim = {
         enable = lib.mkOption {
@@ -15,14 +16,14 @@ in {
         };
 
         colorscheme = lib.mkOption {
-            description = "name of the colorscheme to use";
+            description = "name of the nixvim colorscheme to use";
             type = lib.types.str;
             default = "catppuccin";
             example = "gruvbox";
         };
 
         colorschemeSettings = lib.mkOption {
-            description = "settings attrs to pass to nixvim colorschemes.<>.settings";
+            description = "settings attrs to pass to nixvim's colorschemes.<name>.settings";
             type = lib.types.attrs;
             default = {
                 transparent_background = true;

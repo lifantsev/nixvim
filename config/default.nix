@@ -18,21 +18,6 @@
 
     ftypeOf = file: if (lib.hasSuffix ".nix" file) then "nix" else if (lib.hasSuffix ".lua" file) then "lua" else "";
 
-    # feature = {
-    #     enable = true;
-    #     name = "lualine"
-    #     keymaps = [];
-    #     lua.pre = "";
-    #     lua.post = "";
-    #     vimPlugin = false;
-    #     nixvimPlugin = {
-    #         settings = { ... };
-    #         servers = { ... };
-    #     };
-    # };
-
-    # type is one of vimplug, nixvimplug, custom
-    # TODO maybe allow declaring dependencies between features? like noice -> nui
     mkFeature = file: let
         ftype = ftypeOf file;
         attrs = if ftype=="nix" then
