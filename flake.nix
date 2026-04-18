@@ -30,6 +30,26 @@
             default = nixvim.legacyPackages.${system}.makeNixvim {
                 imports = [modules.nixPackage];
             };
+            default-rsthd = nixvim.legacyPackages.${system}.makeNixvim {
+                imports = [
+                    modules.nixPackage {
+                        programs.lifantsev-nixvim.keys = {
+                            directional = {
+                                left  = "n";
+                                up    = "a";
+                                down  = "i";
+                                right = "o";
+                            };
+                            hjkl = {
+                                h = "i";
+                                j = "n";
+                                k = "a";
+                                l = "o";
+                            };
+                        };
+                    }
+                ];
+            };
             # minimal = nixvim.legacyPackages.${system}.makeNixvim {
             #     imports = [
             #         (module { env = "nixPackage"; })
