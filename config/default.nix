@@ -55,15 +55,13 @@
     };
 
     features = lib.mergeAttrsList (map (f: { ${stemOf f} = mkFeature f; }) (
-        (filesIn ./binds) ++
-        (filesIn ./plugin/nixvim) ++
-        (filesIn ./plugin/vim) ++
-        (filesIn ./plugin/custom))
+        (filesIn ./keymaps) ++
+        (filesIn ./plugin) ++
+        (filesIn ./vimplugin) ++
+        (filesIn ./other))
     );
 in {
-    opts = (import ./options.nix);
     globals.mapleader = " ";
-    globals.loaded_matchit = 1; # disable loading of an annoying plugin
 
     colorschemes.${cfg.colorscheme} = {
         enable = true;
@@ -73,16 +71,11 @@ in {
         };
     };
 
-    # configure nixvim builtin plugins
     plugins = lib.mapAttrs (k: v: v.nixvimPlugin) (lib.filterAttrs (k: v: v.nixvimPlugin != {}) features);
 
-    # install extra plugins
     extraPlugins = map (name: pkgs.vimPlugins.${name})
-                       (lib.attrNames (lib.filterAttrs (f: attrs: attrs.vimPlugin) features));
+                       (lib.attrNames (lib.filterAttrs (f: a: a.vimPlugin) features));
 
     keymaps = lib.lists.concatLists (map (f: f.keymaps) (lib.attrValues features));
     extraConfigLuaPre = lib.concatStrings (map (f: f.lua.pre) (lib.attrValues features));
-
-    # just add highlight definitions to the end of init.lua TODO move this to a feature
-    extraConfigLuaPost = import ./highlights.nix cfg.colors;
 }
