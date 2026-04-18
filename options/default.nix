@@ -20,6 +20,7 @@ in {
         };
     };
 
+    keys = import ./keys.nix args;
     features = import ./features.nix args;
     colors = import ./colors.nix args;
 }

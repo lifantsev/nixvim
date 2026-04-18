@@ -47,6 +47,7 @@
                     default = "";
                     example = "vim.api.nvim_set_hl(0, 'FloatBorder', { fg = '${cfg.colors.mg}' })";
                 };
+                default = {};
             };};
         };
     };}));

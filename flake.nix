@@ -24,7 +24,9 @@
             };
         };
     in {
+		# maybe add a passthrough to makeNixvim
         packages = nixpkgs.lib.genAttrs systems (system: {
+            # TODO! add a default-rsthd that uses 'naio' directionals
             default = nixvim.legacyPackages.${system}.makeNixvim {
                 imports = [modules.nixPackage];
             };
