@@ -28,7 +28,7 @@
         nixvimPlugin = attrs.plugin or {};
     };
 in lib.mergeAttrsList (map (f: { ${stemOf f} = mkFeature f; }) (
-    (filesIn ./keymaps) ++
+    (filesIn ./keymap) ++
     (filesIn ./plugin) ++
     (filesIn ./vimplugin) ++
     (filesIn ./other))
