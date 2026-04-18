@@ -29,10 +29,11 @@
             default = nixvim.legacyPackages.${system}.makeNixvim {
                 imports = [modules.nixPackage];
             };
-            default-rsthd = nixvim.legacyPackages.${system}.makeNixvim {
+            lifantsev = nixvim.legacyPackages.${system}.makeNixvim {
                 imports = [
                     modules.nixPackage {
                         programs.lifantsev-nixvim.keys = {
+                            swap-rd = true;
                             directional = {
                                 left  = "n";
                                 up    = "a";
