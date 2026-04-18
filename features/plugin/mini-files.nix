@@ -21,7 +21,7 @@
                 preview = true;
                 width_focus = 30;
                 width_nofocus = 20;
-                width_preview = 35;
+                width_preview = 60;
             };
         };
     };
