@@ -4,6 +4,12 @@
     type = lib.types.submodule { options = {
         swap-rd = lib.mkEnableOption "swapping r & d keys (this option exists because I personally like it but it shouldn't be default behaviour)";
 
+        leader = lib.mkOption {
+            description = "leader key: vim.g.mapleader / nixvim.globals.mapleader";
+            type = lib.types.str;
+            default = " ";
+        };
+
         directional = lib.mkOption {
             description = "keys to use for directional keymaps (useful if you don't use qwerty)";
             type = lib.types.submodule { options = {

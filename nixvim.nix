@@ -11,7 +11,7 @@
     cfg = config.programs.lifantsev-nixvim;
     features = lib.filterAttrs (name: attrs: attrs.enable) cfg.features;
 in {
-    globals.mapleader = " ";
+    globals.mapleader = cfg.keys.leader;
 
     colorschemes.${cfg.colorscheme} = {
         enable = true;
