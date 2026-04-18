@@ -1,7 +1,7 @@
 { env }: { lib, config, options, pkgs, ... }@arguments: let
     cfg = config.programs.lifantsev-nixvim;
     args = arguments // { inherit cfg; };
-    vimconfig = import ../config args;
+    vimconfig = import ../. args;
 in {
     config = if env == "nixPackage"
              then vimconfig

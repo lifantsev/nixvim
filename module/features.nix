@@ -1,16 +1,16 @@
-{ lib, options, cfg, ... }@args: lib.mkOption {
+{ lib, cfg, ... }@args: lib.mkOption {
     # to disable a feature, set it to {}
     description = "an attrset of features to add to nvim (can add keymaps, plugins, lua code)";
     defaultText = "my personal set of features";
     example = {
-        indent-blankline = import ../config/plugin/indent-blankline.nix args;
+        indent-blankline = import ../features/plugin/indent-blankline.nix args;
     };
     type = lib.types.attrsOf (lib.types.submodule ({ name, ... }: { options = {
         enable = lib.mkEnableOption "the ${name} feature";
 
         keymaps = lib.mkOption {
             description = "keymaps to pass through to nixvim.keymaps";
-            type = options.programs.nixvim.keymaps.type;
+            type = lib.types.listOf (lib.types.attrsOf lib.types.anything);
             default = [];
             example = [ { mode = [ "n" "v" ]; key = "<leader>n"; action = "<C-w><Left>"; } ];
         };
@@ -24,9 +24,7 @@
 
         nixvimPlugin = lib.mkOption {
             description = "nixvim plugin configuration to pass to nixvim.plugins.${name} set to {} to disable";
-            type = if (builtins.hasAttr name options.nixvim.plugins)
-                   then options.nixvim.plugins.${name}.type
-                   else lib.types.attrsOf lib.types.anything;
+            type = lib.types.attrsOf lib.types.anything;
             default = {};
             example = {
                 enable = true;
@@ -52,5 +50,5 @@
             };};
         };
     };}));
-    default = {}; # TODO
+    default = import ../features args;
 }
