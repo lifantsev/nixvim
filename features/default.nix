@@ -34,5 +34,5 @@ in lib.mergeAttrsList (map (f: {
     (filesIn ./keymap) ++
     (filesIn ./plugin) ++
     (filesIn ./vimplugin) ++
-    (filesIn ./other))
-)
+    (filesIn ./other)
+))

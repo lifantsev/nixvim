@@ -2,6 +2,8 @@
     description = "settings used by the default keymap features; this option is noop if you disable those";
 
     type = lib.types.submodule { options = {
+        swap-rd = lib.mkEnableOption "swapping r & d keys (this option exists because I personally like it but it shouldn't be default behaviour)";
+
         directional = lib.mkOption {
             description = "keys to use for directional keymaps (useful if you don't use qwerty)";
             type = lib.types.submodule { options = {
