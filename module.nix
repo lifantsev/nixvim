@@ -21,32 +21,49 @@ in {
             example = "gruvbox";
         };
 
-        plugins = lib.mkOption {
-            description = "attrset defining which plugins to install";
-            defaultText = "blacklist no plugins";
-            example = {
-                whitelist = true;
-                list = [ "auto-save" ];
+        colorschemeSettings = lib.mkOption {
+            description = "settings attrs to pass to nixvim colorschemes.<>.settings";
+            type = lib.types.attrs;
+            default = {
+                transparent_background = true;
+                float.transparent = true;
             };
-            type = lib.types.submodule {
-                options = {
-                    whitelist = lib.mkOption {
-                        description = "whether to treat the plugin list as a whitelist instead of blacklist";
-                        type = lib.types.bool;
-                        default = false;
-                    };
-
-                    list = lib.mkOption {
-                        # TODO make it clear what these names are
-                        description = "list of plugin names to blacklist (or whitelist)";
-                        type = lib.types.listOf lib.types.str;
-                        default = [];
-                        example = [ "lsp" ];
-                    };
-                };
-            };
-            default = {};
         };
+
+        # features = lib.mkOption {
+        #     description = "a blacklist (or whitelist) filter for what features to enable";
+        #     defaultText = "blacklist no plugins";
+        #     example = {
+        #         whitelist = true;
+        #         list = [ "auto-save" ];
+        #     };
+        #     type = lib.types.submodule {
+        #         options = {
+        #             whitelist = lib.mkOption {
+        #                 description = "whether to treat the plugin list as a whitelist instead of blacklist";
+        #                 type = lib.types.bool;
+        #                 default = false;
+        #             };
+
+        #             list = lib.mkOption {
+        #                 # TODO make it clear what these names are
+        #                 description = "list of plugin names to blacklist (or whitelist)";
+        #                 type = lib.types.listOf lib.types.str;
+        #                 default = [];
+        #                 example = [ "lsp" ];
+        #             };
+
+        #             # extra = lib.mkOption {
+        #             #     type = lib.types.listOf lib.types.submodule {
+        #             #         enable = "";
+        #             #         keymaps = "";
+
+        #             #     };
+        #             # };
+        #         };
+        #     };
+        #     default = {};
+        # };
 
         colors = lib.mkOption {
             description = "hex strings to use for vim highlights not covered by colorscheme";

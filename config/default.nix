@@ -65,17 +65,13 @@ in {
 
     colorschemes.${cfg.colorscheme} = {
         enable = true;
-        settings = {
-            transparent_background = true;
-            float.transparent = true;
-        };
+        settings = cfg.colorschemeSettings;
     };
-
-    plugins = lib.mapAttrs (k: v: v.nixvimPlugin) (lib.filterAttrs (k: v: v.nixvimPlugin != {}) features);
-
-    extraPlugins = map (name: pkgs.vimPlugins.${name})
-                       (lib.attrNames (lib.filterAttrs (f: a: a.vimPlugin) features));
 
     keymaps = lib.lists.concatLists (map (f: f.keymaps) (lib.attrValues features));
     extraConfigLuaPre = lib.concatStrings (map (f: f.lua.pre) (lib.attrValues features));
+    plugins = lib.mapAttrs (k: v: v.nixvimPlugin)
+                  (lib.filterAttrs (k: v: v.nixvimPlugin != {}) features);
+    extraPlugins = map (name: pkgs.vimPlugins.${name})
+                       (lib.attrNames (lib.filterAttrs (f: a: a.vimPlugin) features));
 }
