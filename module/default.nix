@@ -1,12 +1,12 @@
-{ env }: { lib, config, options, pkgs, ... }@arguments: let
+env: { lib, config, options, pkgs, ... }@arguments: let
     cfg = config.programs.lifantsev-nixvim;
     args = arguments // { inherit cfg; };
-    vimconfig = import ../. args;
+    nixvim = import ../nixvim.nix args;
 in {
     config = if env == "nixPackage"
-             then vimconfig
+             then nixvim
              else if env == "homeManagerModule"
-             then lib.mkIf cfg.enable { programs.nixvim = { enable = true; } // vimconfig; }
+             then lib.mkIf cfg.enable { programs.nixvim = { enable = true; } // nixvim; }
              else {};
 
     options.programs.lifantsev-nixvim = {

@@ -7,10 +7,8 @@
         fileset = lib.attrsets.filterAttrs (n: v: v == "regular") (builtins.readDir path);
     in map (name: path + "/${name}") (builtins.attrNames fileset);
 
-    ftypeOf = file: if (lib.hasSuffix ".nix" file) then "nix" else if (lib.hasSuffix ".lua" file) then "lua" else "";
-
     mkFeature = file: let
-        ftype = ftypeOf file;
+        ftype = if (lib.hasSuffix ".nix" file) then "nix" else if (lib.hasSuffix ".lua" file) then "lua" else "";
         attrs = if ftype=="nix" then
                     (import file args)
                 else if ftype=="lua" then

@@ -12,7 +12,7 @@
     in {
         packages = nixpkgs.lib.genAttrs systems (system: {
             default = nixvim.legacyPackages.${system}.makeNixvim {
-                imports = [(module { env = "nixPackage"; })];
+                imports = [(module "nixPackage")];
             };
             # minimal = nixvim.legacyPackages.${system}.makeNixvim {
             #     imports = [
@@ -26,7 +26,7 @@
         homeManagerModules.default = {
             imports = [
                 nixvim.homeModules.nixvim
-                (module { env = "homeManagerModule"; })
+                (module "homeManagerModule")
             ];
         };
 
