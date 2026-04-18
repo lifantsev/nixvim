@@ -44,7 +44,7 @@
         (filesIn ./plugin) ++
         (filesIn ./vimplugin) ++
         (filesIn ./other))
-    );
+    ); # TODO filter out features that arent enabled
 in {
     globals.mapleader = " ";
 

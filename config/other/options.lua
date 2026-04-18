@@ -4,7 +4,7 @@ vim.o.showmode = false
 vim.o.cmdheight = 0
 
 -- disable mouse
-vim.o.mouse = ""
+vim.o.mouse = ''
 
 -- use system clipboard (wl-copy)
 vim.o.clipboard = "unnamed,unnamedplus"
