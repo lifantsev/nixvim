@@ -42,7 +42,6 @@
                 else {};
     in {
         enable = true;
-        name = stemOf file;
         keymaps = attrs.keymaps or [];
 
         lua = {
@@ -55,8 +54,12 @@
         nixvimPlugin = attrs.plugin or {};
     };
 
-    # TODO add ./binds
-    features = map mkFeature ( (filesIn ./binds) ++ (filesIn ./plugin/nixvim) ++ (filesIn ./plugin/vim) ++ (filesIn ./plugin/custom));
+    features = lib.mergeAttrsList (map (f: { ${stemOf f} = mkFeature f; }) (
+        (filesIn ./binds) ++
+        (filesIn ./plugin/nixvim) ++
+        (filesIn ./plugin/vim) ++
+        (filesIn ./plugin/custom))
+    );
 in {
     opts = (import ./options.nix);
     globals.mapleader = " ";
@@ -71,24 +74,15 @@ in {
     };
 
     # configure nixvim builtin plugins
-    plugins = lib.mergeAttrsList (map (f: { ${f.name} = f.nixvimPlugin; })
-                                      (lib.filter (f: f.nixvimPlugin != {}) features) );
+    plugins = lib.mapAttrs (k: v: v.nixvimPlugin) (lib.filterAttrs (k: v: v.nixvimPlugin != {}) features);
 
-    # install ./plugin/extra's based on filename
-    extraPlugins = map (f: pkgs.vimPlugins.${f.name})
-                       (lib.filter (f: f.vimPlugin) features);
+    # install extra plugins
+    extraPlugins = map (name: pkgs.vimPlugins.${name})
+                       (lib.attrNames (lib.filterAttrs (f: attrs: attrs.vimPlugin) features));
 
-    # take binds from ./binds
-    # ./plugin's may define remap
-    # ./plugin/extra's may also define remap
-    keymaps = lib.lists.concatLists (map (f: f.keymaps) features);
+    keymaps = lib.lists.concatLists (map (f: f.keymaps) (lib.attrValues features));
+    extraConfigLuaPre = lib.concatStrings (map (f: f.lua.pre) (lib.attrValues features));
 
-    # this needs to be pre
-    # ./plugin/extra's may define lua or they can just be a lua file
-    # ./plugin's may define lua
-    # ./extralua is appended
-    extraConfigLuaPre = lib.concatStrings (map (f: f.lua.pre) features);
-
-    # just add highlight definitions to the end of init.lua
+    # just add highlight definitions to the end of init.lua TODO move this to a feature
     extraConfigLuaPost = import ./highlights.nix cfg.colors;
 }
