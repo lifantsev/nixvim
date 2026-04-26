@@ -53,7 +53,7 @@
             # minimal = nixvim.legacyPackages.${system}.makeNixvim {
             #     imports = [
             #         (module { env = "nixPackage"; })
-            #         # TODO make changes other than making it gruvbox
+            #         # TODO make an actual minimal package
             #         { programs.lifantsev-nixvim.colorscheme = "gruvbox"; }
             #     ];
             # };
