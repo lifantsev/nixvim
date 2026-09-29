@@ -3,17 +3,17 @@ My personal neovim configuration, built using [nixvim](https://github.com/nix-co
 
 ## Usage
 To quickly test drive my config, run:
-```
+``` sh
 nix run github:lifantsev/nixvim
 ```
 
 To use my config in your nix configuration, add an input to your flake:
-```
+``` nix
 inputs.lifantsev-nixvim.url = "github:lifantsev/nixvim";
 ```
 
 To install as a drop in replacement for the neovim package use:
-```
+``` nix
 # Make sure you've added lifantsev-nixvim as a flake input
 
 # for NixOS
@@ -24,7 +24,7 @@ home.packages = [ inputs.lifantsev-nixvim.packages.${system}.default ];
 ```
 
 This flake also provides a home manager module. Using the module allows you to tweak aspects of the config. Currently the only options availabe are `colorscheme` and `colors`, but I plan to add more in the future. For example, to use gruvbox instead of the default catppuccin mocha:
-```
+``` nix
 # Make sure you've added lifantsev-nixvim as a flake input
 
 imports = [ inputs.lifantsev-nixvim.homeManagerModules.default ];
@@ -63,7 +63,7 @@ TODO using the flake if youre configuration isnt flake based (ie cant add a flak
 
 ### Binary Cache
 This repository has a github workflow that automatically builds a package for `x86_64-linux` and `aarch64-linux` and pushes them to [cachix](https://lifantsev-nixvim.cachix.org). To tell nix to use this cache (you might want to if you have limited space or compute), add this to your configuration:
-```
+``` nix
 nix.settings = {
     extra-substituters = [ "https://lifantsev-nixvim.cachix.org" ];
     extra-trusted-public-keys = [ "lifantsev-nixvim.cachix.org-1:YrToDOQcRnfUaXmkCBgF4nN4Znsvq/tCCX1pISSmFm0=" ];
