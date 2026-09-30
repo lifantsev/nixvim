@@ -2,26 +2,16 @@
 All options are under `programs.lifantsev-nixvim`.
 
 ## enable
-Whether to enable the module, which will configure neovim through [nixvim](https://github.com/nix-community/nixvim).
-```nix
-enable = false;
-```
+Whether to enable the module, which will configure neovim through [nixvim](https://github.com/nix-community/nixvim). `default = false`
 
 ## wipe
-Whether to wipe all defaults (set them to empty attrsets). Enable this if you want to start your own config from stratch.
-```nix
-wipe = false;
-```
+Whether to wipe all defaults (set them to empty attrsets). Enable this if you want to start your own config from stratch. `default = false`
 
 ## colorscheme
-Name of the nixvim colorscheme to enable.
-``` nix
-colorscheme = "catppuccin";
-```
+Name of the nixvim colorscheme to enable. `defualt = "catppuccin"`
 
 ## colorschemeSettings
 Attrset of settings to pass to the nixvim colorscheme.
-- default:
 ``` nix
 colorschemeSettings = {
     transparent_background = true;
