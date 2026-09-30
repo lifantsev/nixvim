@@ -1,5 +1,5 @@
 { lib, ... }: lib.mkOption {
-    description = "hex strings to use for vim highlights not covered by colorscheme";
+    description = "colors used for custom highlights set by the default features; this option is noop if you disable those";
     defaultText = "catpuccin mocha colorscheme";
     example = {
         bg = "#282828";
