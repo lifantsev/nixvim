@@ -20,11 +20,11 @@ colorschemeSettings = {
 ```
 
 ## features
-The meat & potatoes of this flake. An attrset of atomic features, each of which is able to set keymaps, install `vimPlugins`, install `nixvimPlugins`, and add `init.lua`.
+The meat & potatoes of this flake. An attrset of atomic features, each of which is able to set keymaps, install `vimPlugins`, install `nixvimPlugins`, and change `init.lua`.
 ``` nix
 features = import ../features args;
 ```
-This flake contains a [features](features/) directory which is compiled into a suitable attrset using [features/default.nix](features/default.nix). If you would like to configure your own feature set similarly, just copy the file. You can also just edit the attrset itself by adding features like this:
+This flake contains a [features/](features/) directory which is compiled into a suitable attrset using [features/default.nix](features/default.nix). If you would like to configure your own feature set similarly, just copy the file. You can also just edit the attrset itself by adding features like this:
 ```nix
 features.indent-blankline = {
     enable = true;
@@ -58,7 +58,7 @@ features.indent-blankline = {
 ```
 
 ## keys
-Settings used by the default features; this option is noop if you disable those.
+Used by the default features when setting keymaps; this option is noop if you disable those.
 
 ### keys.swap-rd
 Swap r & d keys. I personally like this but it shouldn't be default behaviour; thus this option.
