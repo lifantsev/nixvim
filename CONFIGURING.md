@@ -60,12 +60,6 @@ features.indent-blankline = {
 ## keys
 Used by the default features when setting keymaps; this option is noop if you disable those.
 
-### keys.swap-rd
-Swap r & d keys. I personally like this but it shouldn't be default behaviour; thus this option.
-```nix
-keys.swap-rd = false;
-```
-
 ### keys.leader
 The leader key: `vim.g.mapleader` / `nixvim.globals.mapleader`.
 ```nix
@@ -92,6 +86,12 @@ keys.hjkl = {
     k = keys.directional.up;   # that is, it will enter insert mode
     l = keys.directional.right;
 };
+```
+
+### keys.swap-rd
+Swap r & d keys. I personally like this but it shouldn't be default behaviour; thus this option.
+```nix
+keys.swap-rd = false;
 ```
 
 ## colors
