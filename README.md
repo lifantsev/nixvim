@@ -1,5 +1,5 @@
-# Nixvim
-A neovim configuration framework that splits the config into atomic `features`. Built using [nixvim](https://github.com/nix-community/nixvim). Defaults are set to my personal neovim config, but can easily be overwritten.
+# Nixvim Config Framework
+Framework that defines the config as a set of atomic features, each one being able to install a plugin, set keymaps, and edit `init.lua`. Built using [nixvim](https://github.com/nix-community/nixvim). Defaults are set to my personal neovim config, but can easily be overwritten.
 
 - [Usage](#Usage), [Configuration](#Configuration), [Binary Cache](#Binary-Cache)
 
