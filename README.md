@@ -27,7 +27,7 @@ home.packages = [ inputs.lifantsev-nixvim.packages.${system}.default ];
 ```
 
 ## Configuration
-For a description of all options see [CONFIGURING.md](CONFIGURING.md). This flake exposes a home manager module that allows you to tweak aspects of the config, or build your very own from scratch. For example, to use gruvbox instead of catppuccin and disable the lualine feature:
+See [CONFIGURING.md](CONFIGURING.md) for a description of all options. This flake exposes a home manager module that allows you to tweak aspects of the config, or build your very own from scratch. For example, to use gruvbox instead of catppuccin and disable the lualine feature:
 ``` nix
 # Make sure you've added lifantsev-nixvim as a flake input
 
