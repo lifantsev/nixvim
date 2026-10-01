@@ -1,6 +1,8 @@
 # Configuring
 All options are under `programs.lifantsev-nixvim`.
 
+- [features](#features), [keys](#keys), [colors](#colors)
+
 ## enable
 Whether to enable the module, which will configure neovim through [nixvim](https://github.com/nix-community/nixvim). `default = false`
 
