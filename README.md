@@ -3,6 +3,8 @@ Framework that defines the config as a set of atomic features, each one being ab
 
 - [usage](#Usage), [configuration](#Configuration), [binary cache](#Binary-Cache)
 
+<img width="640" height="400" alt="nixvim_demo" src="https://github.com/user-attachments/assets/63d0e539-13a2-4223-821d-d951ebe8fccc" />
+
 ## Usage
 To quickly test drive my config, run:
 ``` sh
