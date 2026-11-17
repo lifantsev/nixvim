@@ -2,8 +2,8 @@
     description = "Mark Lifantsev's personal nixvim flake";
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-        nixvim.url = "github:nix-community/nixvim/nixos-25.11";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+        nixvim.url = "github:nix-community/nixvim/nixos-26.05";
     };
 
     outputs = { nixpkgs, nixvim, ... }: let
@@ -24,7 +24,7 @@
             };
         };
     in {
-		# maybe add a passthrough to makeNixvim
+        # maybe add a passthrough to makeNixvim
         packages = nixpkgs.lib.genAttrs systems (system: {
             default = nixvim.legacyPackages.${system}.makeNixvim {
                 imports = [modules.nixPackage];
