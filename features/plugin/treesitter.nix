@@ -1,7 +1,10 @@
 { config, ... }: {
     plugin = {
         enable = true;
-        grammarPackages = with config.plugins.treesitter.package.builtGrammars; [
+        grammarPackages = let 
+            plugins = config.programs.nixvim.plugins or config.plugins;
+        in with plugins.treesitter.package.builtGrammars;
+        [
             json toml yaml xml
             vim vimdoc
             markdown
