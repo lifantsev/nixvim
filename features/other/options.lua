@@ -35,6 +35,10 @@ vim.o.undofile = true
 vim.o.scrolloff = 7
 vim.o.sidescrolloff = 3
 
+-- folding
+vim.o.foldlevel = 3
+vim.o.foldlevelstart = 3
+
 -- other
 vim.o.laststatus = 3
 vim.o.termguicolors = true
