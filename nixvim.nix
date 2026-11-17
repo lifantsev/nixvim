@@ -18,8 +18,8 @@ in {
     };
 
     keymaps = lib.lists.concatLists (map (f: f.keymaps) (lib.attrValues features));
-    extraConfigLuaPre = lib.concatStrings (map (f: f.lua.pre) (lib.attrValues features));
-    extraConfigLuaPost = lib.concatStrings (map (f: f.lua.post) (lib.attrValues features));
+    extraConfigLuaPre = lib.concatStringsSep "\n" (map (f: f.lua.pre) (lib.attrValues features));
+    extraConfigLuaPost = lib.concatStringsSep "\n" (map (f: f.lua.post) (lib.attrValues features));
     plugins = lib.mapAttrs (k: v: v.nixvimPlugin)
                   (lib.filterAttrs (k: v: v.nixvimPlugin != {}) features);
     extraPlugins = map (name: pkgs.vimPlugins.${name})
