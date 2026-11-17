@@ -1,8 +1,7 @@
 # TODO set up cmp and luasnip (completion in general)
 # TODO set up DAP
 # TODO set up lsp keybinds: goto def, list ref, etc
-# TODO look into plugin for building project using vim bind (or write it)
-# TODO add lsp diagnostic count to bar
+# TODO look into plugin for building/compiling project using vim bind (or write it)
 
 # TODO change markdown highlight colors to something more pleasing
 # TODO per filetype wrapping

@@ -49,7 +49,7 @@
                 symbols = { modified = ""; alternate_file = ""; directory = ""; };
             }];
 
-            lualine_z = [ "location" ];
+            lualine_z = [ "diagnostics" "location" ];
 
             lualine_b = { __empty = null; };
             lualine_c = { __empty = null; };
