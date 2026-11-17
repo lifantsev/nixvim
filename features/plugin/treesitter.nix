@@ -8,6 +8,7 @@
             json toml yaml xml
             vim vimdoc
             markdown
+            tree-sitter-css
             make
             regex 
 
