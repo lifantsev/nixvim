@@ -3,11 +3,18 @@
     plugin.enable = true;
 
     plugin.servers = {
-        lua_ls.enable = true;
-        nixd.enable = true;
-        bashls.enable = true;
+        lua_ls.enable = true; # lua
+        nixd.enable   = true; # nix
+        bashls.enable = true; # sh
+        ts_ls.enable  = true; # js & ts
+        pylsp.enable  = true; # python
 
         lua_ls.settings.diagnostics.globals = [ "vim" ];
+
+        pylsp.settings.plugins = {
+            pyflakes.enabled = true;
+            pycodestyle.enabled = true;
+        };
     };
 
     lua.pre = /*lua*/ ''
