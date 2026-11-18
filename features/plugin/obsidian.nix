@@ -6,6 +6,8 @@
             new_note_location = "current_dir";
             picker.name = "telescope.nvim";
 
+            legacy_commands = false;
+
             workspaces = [{
                 name = "main";
                 path = "~/obsidian";
