@@ -36,8 +36,12 @@ vim.o.scrolloff = 7
 vim.o.sidescrolloff = 3
 
 -- folding
-vim.o.foldlevel = 3
-vim.o.foldlevelstart = 3
+vim.o.foldtext = ''
+vim.opt.fillchars:append({fold = " "})
+
+-- conceal
+vim.o.conceallevel = 2
+vim.o.concealcursor = "n"
 
 -- other
 vim.o.laststatus = 3

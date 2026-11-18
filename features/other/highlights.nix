@@ -7,6 +7,8 @@
 
     vim.api.nvim_set_hl(0, 'LeapLabel', { fg = '${purple}', bg = '${bg}', bold = true; })
 
+    vim.api.nvim_set_hl(0, 'Folded', { fg = '${fg}', bg = '${black}' })
+
     vim.api.nvim_set_hl(0, 'NoiceCmdlineIcon', { fg = '${mg}' })
     vim.api.nvim_set_hl(0, 'NoiceCmdlineIconSearch', { link = "NoiceCmdlineIcon" })
     vim.api.nvim_set_hl(0, 'NoiceFormatConfirm', { bg = 0 })
