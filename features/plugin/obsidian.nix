@@ -22,4 +22,7 @@
         };
     };
 
+    keymaps = [
+        { mode = "n"; key = "<leader>sb"; action = "<CMD>Obsidian backlinks<CR>"; }
+    ];
 }
