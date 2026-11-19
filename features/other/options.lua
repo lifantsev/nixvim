@@ -15,9 +15,11 @@ vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 vim.o.expandtab = true
+
+-- wrap settings
+vim.o.wrap = false
 vim.o.breakindent = true
 vim.o.linebreak = true
-
 
 -- searching settings
 vim.o.ignorecase = true
@@ -35,6 +37,7 @@ vim.o.scrolloff = 7
 vim.o.sidescrolloff = 3
 
 -- folding
+vim.o.foldlevelstart = 5
 vim.o.foldtext = ''
 vim.opt.fillchars:append({fold = " "})
 
@@ -45,8 +48,8 @@ vim.o.concealcursor = "n"
 -- other
 vim.o.laststatus = 3
 vim.o.termguicolors = true
-vim.o.wrap = false
 vim.o.report = 1000
 vim.o.colorcolumn = "0"
 vim.o.timeoutlen = 700
+vim.o.virtualedit = "block"
 vim.o.guicursor = "n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
