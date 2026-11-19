@@ -1,5 +1,5 @@
--- Array of file names indicating root directory. Modify to your liking.
-local root_names = { '.git', 'Makefile', 'flake.nix' }
+-- Array of file/directory names indicating root directory. Modify to your liking.
+local root_names = { '.git', 'Makefile', 'flake.nix', '.obsidian' }
 
 local set_root = function()
     -- get the cwd either from current file or getcwd()
@@ -17,7 +17,7 @@ local set_root = function()
     if root_file == nil then return end
 
     -- change to the directory we found
-    root = vim.fs.dirname(root_file)
+    local root = vim.fs.dirname(root_file)
     vim.fn.chdir(root)
 end
 
