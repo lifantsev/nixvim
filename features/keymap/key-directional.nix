@@ -8,10 +8,13 @@ let
 in {
     keymaps = [
         # lowercase directional
-        { mode = modes;   key = left;  action = "h"; }
+        { mode = modes_n; key = left;  action = "h"; }
         { mode = modes_n; key = up;    action = "k"; }
         { mode = modes_n; key = down;  action = "j"; }
-        { mode = modes;   key = right; action = "l"; }
+        { mode = modes_n; key = right; action = "l"; }
+
+        { mode = "n"; key = left;  action.__raw = ''skip_conceal("left")''; }
+        { mode = "n"; key = right; action.__raw = ''skip_conceal("right")''; }
 
         { mode = "n"; key = up;   action = "gk"; }
         { mode = "n"; key = down; action = "gj"; }
@@ -41,4 +44,42 @@ in {
         { mode = modes; key = "J"; action = toUpper hjkl.j; }
         { mode = modes; key = "L"; action = toUpper hjkl.l; }
     ];
+
+    lua.pre = /* lua */ ''
+        local function skip_conceal(direction)
+            local function col() return vim.fn.col(".") end -- both 1 indexed
+            local function row() return vim.fn.line(".") end
+
+            local function step()
+                if direction == "right"
+                then vim.cmd("normal! l")
+                else vim.cmd("normal! h") end
+            end
+
+            local function syn_conceal()
+                return vim.fn.synconcealed(row(), col())[1] == 1
+            end
+
+            local function ts_conceal()
+                local captures = vim.treesitter.get_captures_at_pos(0,row()-1, col()-1)
+                for _,cap in ipairs(captures) do
+                    if cap.metadata.conceal then return true end
+                end
+                return false
+            end
+
+            return function()
+                step()
+
+                while syn_conceal() or ts_conceal() do
+                    local prevcol = col()
+                    step()
+
+                    if col() == prevcol then
+                        break
+                    end
+                end
+            end
+        end
+    '';
 }
