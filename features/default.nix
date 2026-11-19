@@ -12,7 +12,7 @@
         attrs = if ftype=="nix" then
                     (import file args)
                 else if ftype=="lua" then
-                    { lua.pre = builtins.readFile file; }
+                    { lua.post = builtins.readFile file; }
                 else {};
     in {
         enable = true;

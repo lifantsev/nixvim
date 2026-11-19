@@ -8,6 +8,7 @@
             component_separators = "";
             section_separators = "";
             always_divide_middle = false;
+            always_show_tabline = false;
 
             refresh.statusline = 500;
             refresh.tabline = 700;
@@ -27,7 +28,6 @@
         tabline = {
             lualine_a = [{
                 __unkeyed = "tabs";
-                cond.__raw = "function() vim.o.showtabline = 1 return true end"; # force showtabline to be set correctly (only show when >1 tabs)
 
                 mode = 0;
                 path = 0;

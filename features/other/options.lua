@@ -1,5 +1,4 @@
 -- save screen space
--- showtabline is set in lualine.nix
 vim.o.showmode = false
 vim.o.cmdheight = 0
 
