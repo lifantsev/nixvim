@@ -1,4 +1,4 @@
-{ lib, cfg, ... }@args: let # cfg passed thru
+{ lib, ... }@args: let
     stemOf = file: let
         matches = builtins.match "^(.*)\\.[a-z]*$" (builtins.baseNameOf file);
     in if matches == null then builtins.baseNameOf file else builtins.elemAt matches 0;
