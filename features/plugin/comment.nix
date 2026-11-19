@@ -1,6 +1,6 @@
 { ... }: {
-    # 'hc' comment textobject bind comes from mini.comment
     plugin.enable = true;
+
     plugin.settings = {
         ignore = "^$";
 

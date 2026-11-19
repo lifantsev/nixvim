@@ -1,6 +1,7 @@
 { config, ... }: {
     plugin = {
         enable = true;
+
         grammarPackages = let 
             plugins = config.programs.nixvim.plugins or config.plugins;
         in with plugins.treesitter.package.builtGrammars;

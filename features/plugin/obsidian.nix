@@ -1,6 +1,14 @@
 { ... }: {
     plugin = {
         enable = true;
+        lazyLoad.settings = {
+            ft = "markdown";
+            before.__raw = /*lua*/ ''
+                function()
+                    require('lz.n').trigger_load('telescope.nvim')
+                end
+            '';
+        };
 
         settings = {
             new_note_location = "current_dir";

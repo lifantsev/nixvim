@@ -1,6 +1,8 @@
 { ... }: {
     plugin.enable = true;
 
+    plugin.lazyLoad.settings.cmd = "Telescope";
+
     plugin.settings = {
         defaults = {
             mappings = {
