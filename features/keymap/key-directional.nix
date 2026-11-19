@@ -1,9 +1,14 @@
 { lib, cfg, ... }: with cfg.keys; with lib; let modes = [ "n" "v" "s" "x" "o" ]; dir = directional; in { keymaps = [
+    # lowercase directional
     { mode = modes; key = dir.left; action = "h"; }
-    { mode = lists.remove "n" modes; key = dir.up; action = "k"; } { mode = "n"; key = dir.up; action = "gk"; }
-    { mode = lists.remove "n" modes; key = dir.down; action = "j"; } { mode = "n"; key = dir.down; action = "gj"; }
+    { mode = lists.remove "n" modes; key = dir.up; action = "k"; }
+    { mode = lists.remove "n" modes; key = dir.down; action = "j"; }
     { mode = modes; key = dir.right; action = "l"; }
 
+    { mode = "n"; key = dir.up; action = "gk"; }
+    { mode = "n"; key = dir.down; action = "gj"; }
+
+    # uppercase directional
     { mode = "n"; key = toUpper dir.left; action = "mzJ`z"; }
     { mode = lists.remove "n" modes; key = toUpper dir.left; action = "H"; }
 
@@ -17,6 +22,7 @@
 
     { mode = modes; key = toUpper dir.right; action = "L"; }
 
+    # HJKL lower & upper
     { mode = modes; key = "h"; action = hjkl.h; }
     { mode = modes; key = "k"; action = hjkl.k; }
     { mode = modes; key = "j"; action = hjkl.j; }
