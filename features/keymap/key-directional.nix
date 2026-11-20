@@ -71,8 +71,11 @@ in {
             return function()
                 step()
 
-                while syn_conceal() or ts_conceal() do
+                if not vim.o.concealcursor:find(vim.api.nvim_get_mode().mode) then return end
+
+                while ts_conceal() do
                     local prevcol = col()
+
                     step()
 
                     if col() == prevcol then
