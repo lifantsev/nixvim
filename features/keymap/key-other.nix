@@ -7,6 +7,15 @@
         # wrap toggle
         { mode = "n"; key = "<c-w>"; action = "<CMD>set wrap!<cr>"; }
 
+        # conceal toggle
+        { mode = "n"; key = "<c-c>"; action.__raw = ''function()
+            if vim.wo.concealcursor ~= ""
+            then vim.wo.concealcursor = ""
+            else vim.wo.concealcursor = (vim.go.concealcursor ~= ""
+                                        and vim.go.concealcursor or "n")
+            end
+        end''; }
+
         # quick sed binds
         { mode = "v"; key = "<leader>s"; action = "\"hy:%s/<c-r>h//g<left><left> <BS>"; }
         { mode = "n"; key = "<c-s>"; action = ":%s/"; }
