@@ -1,6 +1,11 @@
 { lib, pkgs, config, ... }: let
     cfg = config.programs.lifantsev-nixvim;
-    features = lib.filterAttrs (name: attrs: attrs.enable) cfg.features;
+    features = lib.filterAttrs (name: attrs: attrs.enable && name != "toggleterm") cfg.features;
+
+    lua = postpre: features: features
+            |> lib.attrValues
+            |> map (a: a.lua.${postpre})
+            |> lib.concatStringsSep "\n";
 in {
     globals.mapleader = cfg.keys.leader;
 
@@ -9,13 +14,17 @@ in {
         settings = cfg.colorschemeSettings;
     };
 
-    keymaps = lib.lists.concatLists (map (f: f.keymaps) (lib.attrValues features));
+    keymaps = features
+                |> lib.attrValues
+                |> map (a: a.keymaps)
+                |> lib.lists.concatLists;
 
-    extraConfigLuaPre = lib.concatStringsSep "\n" (map (f: f.lua.pre) (lib.attrValues features));
-    extraConfigLuaPost = lib.concatStringsSep "\n" (map (f: f.lua.post) (lib.attrValues features));
+    extraConfigLuaPre = lua "pre" features;
+    extraConfigLuaPost = lua "post" features;
 
-    plugins = lib.mapAttrs (k: v: v.nixvimPlugin)
-        (lib.filterAttrs (k: v: v.nixvimPlugin != {}) features);
+    plugins = features
+                |> lib.filterAttrs (featname: a: a.nixvimPlugin != {})
+                |> lib.mapAttrs (f: a: a.nixvimPlugin);
 
     extraPlugins = (features
                     |> lib.filterAttrs (f: a: a.vimPlugin != "")
