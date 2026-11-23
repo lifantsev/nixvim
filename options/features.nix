@@ -32,6 +32,18 @@
             };
         };
 
+        extraPlugin = lib.mkOption {
+            description = "github plugin to install. passed to pkgs.fetchFromGitHub. set to {} to disable";
+            type = lib.types.attrsOf lib.types.anything;
+            default = {};
+            example = {
+                owner = "<owner>";
+                repo = "<repo>";
+                rev = "<commit hash>";
+                hash = "<nix NAR hash>";
+            };
+        };
+
         lua = lib.mkOption {
             description = "lua code to add to init.lua";
             type = lib.types.submodule { options = {

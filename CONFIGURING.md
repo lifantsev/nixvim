@@ -46,6 +46,14 @@ features.indent-blankline = {
         };
     };
 
+    # plugin to install directly from github (use if the plugin isn't even packaged in nixpkgs)
+    extraPlugin = {
+        owner = "lukas-reineke";
+        repo = "indent-blankline.nvim";
+        rev = "<commit-hash>";
+        hash = "<nix NAR hash>";
+    };
+
     # prepend to init.lua
     lua.pre = /*lua*/ ''
         local ibl_hooks = require("ibl.hooks")

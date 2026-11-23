@@ -26,6 +26,8 @@
         vimPlugin = attrs.vimPlugin or "";
         
         nixvimPlugin = attrs.plugin or {};
+
+        extraPlugin = attrs.extraPlugin or {};
     };
 in lib.mergeAttrsList (map (f: {
     ${stemOf f} = mkFeature f;

@@ -20,5 +20,11 @@ in {
     extraPlugins = (features
                     |> lib.filterAttrs (f: a: a.vimPlugin != "")
                     |> lib.attrValues
-                    |> map (a: pkgs.vimPlugins.${a.vimPlugin}));
+                    |> map (a: pkgs.vimPlugins.${a.vimPlugin}))
+                ++ (features
+                    |> lib.filterAttrs (f: a: a.extraPlugin != {})
+                    |> lib.mapAttrsToList (featname: attrs: pkgs.vimUtils.buildVimPlugin {
+                            name = featname;
+                            src = pkgs.fetchFromGitHub attrs.extraPlugin;
+                        }));
 }
