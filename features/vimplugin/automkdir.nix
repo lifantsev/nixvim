@@ -1,0 +1,1 @@
+{ ... }: { vimPlugin = "vim-automkdir"; }

@@ -16,10 +16,10 @@
         };
 
         vimPlugin = lib.mkOption {
-            description = "whether to install pkgs.vimPlugins.${name}";
-            type = lib.types.bool;
-            default = false;
-            example = true;
+            description = "name of plugin to install from pkgs.vimPlugins. set to \"\" to disable";
+            type = lib.types.str;
+            default = "";
+            example = "bufresize-nvim";
         };
 
         nixvimPlugin = lib.mkOption {

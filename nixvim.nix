@@ -17,6 +17,8 @@ in {
     plugins = lib.mapAttrs (k: v: v.nixvimPlugin)
         (lib.filterAttrs (k: v: v.nixvimPlugin != {}) features);
 
-    extraPlugins = map (name: pkgs.vimPlugins.${name})
-        (lib.attrNames (lib.filterAttrs (f: a: a.vimPlugin) features));
+    extraPlugins = (features
+                    |> lib.filterAttrs (f: a: a.vimPlugin != "")
+                    |> lib.attrValues
+                    |> map (a: pkgs.vimPlugins.${a.vimPlugin}));
 }

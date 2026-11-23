@@ -1,4 +1,6 @@
 { cfg, ... }: with cfg.keys.directional; {
+    vimPlugin = "winshift-nvim";
+
     lua = /*lua*/ "require('winshift').setup()";
 
     keymaps = [

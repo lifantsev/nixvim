@@ -7,7 +7,7 @@
         fileset = lib.attrsets.filterAttrs (n: v: v == "regular") (builtins.readDir path);
     in map (name: path + "/${name}") (builtins.attrNames fileset);
 
-    mkFeature = isVimPlugin: file: let
+    mkFeature = file: let
         ftype = if (lib.hasSuffix ".nix" file) then "nix" else if (lib.hasSuffix ".lua" file) then "lua" else "";
         attrs = if ftype=="nix" then
                     (import file args)
@@ -23,12 +23,12 @@
             post = attrs.lua.post or "";
         };
 
-        vimPlugin = isVimPlugin file;
+        vimPlugin = attrs.vimPlugin or "";
         
         nixvimPlugin = attrs.plugin or {};
     };
 in lib.mergeAttrsList (map (f: {
-    ${stemOf f} = mkFeature (lib.path.hasPrefix ./vimplugin) f;
+    ${stemOf f} = mkFeature f;
 })
 (
     (filesIn ./keymap) ++
