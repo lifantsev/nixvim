@@ -21,8 +21,9 @@
     keymaps = let
         close_minifiles_and = action: /*lua*/ ''
             function()
+                require('lz.n').trigger_load('telescope.nvim')
                 require('mini.files').close()
-                require('telescope.builtins').${action}()
+                require('telescope.builtin').${action}()
             end
         '';
     in [
