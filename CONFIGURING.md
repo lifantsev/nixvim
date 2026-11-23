@@ -34,9 +34,6 @@ features.indent-blankline = {
     # keymaps to add to nixvim.keymaps
     keymaps = [ { mode = [ "n" "v" ]; key = "<leader>n"; action = "<C-w><Left>"; } ];
 
-    # whether to install pkgs.vimPlugins.indent-blankline
-    vimPlugin = false;
-
     # config attrset to pass to nixvim.plugins.indent-blankline
     nixvimPlugin = {
         enable = true;
@@ -45,6 +42,9 @@ features.indent-blankline = {
             indent.highlight = [ "IblChar" ];
         };
     };
+
+    # name of package to install from pkgs.vimPlugins (use if nixvim doesn't implement the plugin)
+    vimPlugin = "indent-blankline-nvim";
 
     # plugin to install directly from github (use if the plugin isn't even packaged in nixpkgs)
     extraPlugin = {
