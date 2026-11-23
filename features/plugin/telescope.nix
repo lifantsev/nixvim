@@ -18,10 +18,17 @@
         };
     };
 
-    keymaps = [
-        { mode = "n"; key = "<leader>sf"; action = "<CMD>Telescope find_files<CR>"; }
-        { mode = "n"; key = "<leader>sh"; action = "<CMD>Telescope help_tags<CR>"; }
-        { mode = "n"; key = "<leader>sg"; action = "<CMD>Telescope live_grep<CR>"; } # rg cwd
+    keymaps = let
+        close_minifiles_and = action: /*lua*/ ''
+            function()
+                require('mini.files').close()
+                require('telescope.builtins').${action}()
+            end
+        '';
+    in [
+        { mode = "n"; key = "<leader>sf"; action.__raw = (close_minifiles_and "find_files"); }
+        { mode = "n"; key = "<leader>sh"; action.__raw = (close_minifiles_and "help_tags"); }
+        { mode = "n"; key = "<leader>sg"; action.__raw = (close_minifiles_and "live_grep"); }
     ];
 
     # NOTE THIS REQUIRES NUI PLUGIN
