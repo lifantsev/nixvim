@@ -7,6 +7,7 @@
         nixd.enable   = true; # nix
         bashls.enable = true; # sh
         ts_ls.enable  = true; # js & ts
+        jsonls.enable = true; # json
         pylsp.enable  = true; # python
 
         lua_ls.settings.diagnostics.globals = [ "vim" ];
